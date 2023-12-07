@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Code">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Headers\Silent`s ModUtils">
+      <UniqueIdentifier>{c9e4831b-a943-4503-9846-3035febf06ed}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ModUtils\HookInit.hpp">
+      <Filter>Headers\Silent`s ModUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="ModUtils\LateStaticInit.h">
+      <Filter>Headers\Silent`s ModUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="ModUtils\MemoryMgr.GTA.h">
+      <Filter>Headers\Silent`s ModUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="ModUtils\MemoryMgr.h">
+      <Filter>Headers\Silent`s ModUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="ModUtils\ModuleList.hpp">
+      <Filter>Headers\Silent`s ModUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="ModUtils\Patterns.h">
+      <Filter>Headers\Silent`s ModUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="ModUtils\ScopedUnprotect.hpp">
+      <Filter>Headers\Silent`s ModUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="ModUtils\Trampoline.h">
+      <Filter>Headers\Silent`s ModUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="ModUtils\DelimStringReader.h">
+      <Filter>Headers\Silent`s ModUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleGTA.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Code</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Code</Filter>
+    </ClCompile>
+    <ClCompile Include="sa.cpp">
+      <Filter>Source Code</Filter>
+    </ClCompile>
+    <ClCompile Include="ModUtils\Patterns.cpp">
+      <Filter>Headers\Silent`s ModUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="vc.cpp">
+      <Filter>Source Code</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

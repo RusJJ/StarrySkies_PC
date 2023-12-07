@@ -1,0 +1,3 @@
+[submodule "ModUtils"]
+	path = ModUtils
+	url = https://github.com/RusJJ/ModUtils
