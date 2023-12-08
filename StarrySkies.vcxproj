@@ -149,7 +149,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h" />
     <ClInclude Include="ModUtils\DelimStringReader.h" />
     <ClInclude Include="ModUtils\HookInit.hpp" />
     <ClInclude Include="ModUtils\LateStaticInit.h" />
@@ -159,20 +158,16 @@
     <ClInclude Include="ModUtils\Patterns.h" />
     <ClInclude Include="ModUtils\ScopedUnprotect.hpp" />
     <ClInclude Include="ModUtils\Trampoline.h" />
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="SimpleGTA.h" />
+    <ClInclude Include="Source\framework.h" />
+    <ClInclude Include="Source\pch.h" />
+    <ClInclude Include="Source\SimpleGTA.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="sa.cpp" />
     <ClCompile Include="ModUtils\Patterns.cpp" />
-    <ClCompile Include="pch.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="vc.cpp" />
+    <ClCompile Include="Source\dllmain.cpp" />
+    <ClCompile Include="Source\pch.cpp" />
+    <ClCompile Include="Source\sa.cpp" />
+    <ClCompile Include="Source\vc.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

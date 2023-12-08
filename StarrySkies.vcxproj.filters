@@ -14,12 +14,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="ModUtils\HookInit.hpp">
       <Filter>Headers\Silent`s ModUtils</Filter>
     </ClInclude>
@@ -47,24 +41,30 @@
     <ClInclude Include="ModUtils\DelimStringReader.h">
       <Filter>Headers\Silent`s ModUtils</Filter>
     </ClInclude>
-    <ClInclude Include="SimpleGTA.h">
+    <ClInclude Include="Source\framework.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\pch.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SimpleGTA.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp">
-      <Filter>Source Code</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>Source Code</Filter>
-    </ClCompile>
-    <ClCompile Include="sa.cpp">
-      <Filter>Source Code</Filter>
-    </ClCompile>
     <ClCompile Include="ModUtils\Patterns.cpp">
       <Filter>Headers\Silent`s ModUtils</Filter>
     </ClCompile>
-    <ClCompile Include="vc.cpp">
+    <ClCompile Include="Source\dllmain.cpp">
+      <Filter>Source Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\pch.cpp">
+      <Filter>Source Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\sa.cpp">
+      <Filter>Source Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\vc.cpp">
       <Filter>Source Code</Filter>
     </ClCompile>
   </ItemGroup>
