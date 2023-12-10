@@ -23,13 +23,6 @@ extern float StarCoorsX[SSidesCount][AMOUNT_OF_SIDESTARS], StarCoorsY[SSidesCoun
 extern float fSmallStars, fMiddleStars, fBiggestStars, fBiggestStarsSpawnChance;
 extern CVector PositionsTable[SSidesCount];
 
-extern bool (*CalcScreenCoors)(CVector*, CVector*, float*, float*, bool, bool);
-extern void (*RenderBufferedOneXLUSprite)(CVector pos, float w, float h, uint8_t r, uint8_t g, uint8_t b, short intens, float recipZ, uint8_t a);
-
-extern CVector* CamPosPtr;
-inline float RandomIt(float min, float max)
-{
-    return (((float)rand()) / (float)RAND_MAX) * (max - min) + min;
-}
+#define RandomIt(_min, _max) ((((float)rand()) / (float)RAND_MAX) * (_max - _min) + _min)
 
 #endif

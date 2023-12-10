@@ -1,12 +1,7 @@
 ﻿#include "pch.h"
 
-CVector* CamPosPtr;
-
-bool (*CalcScreenCoors)(CVector*, CVector*, float*, float*, bool, bool);
-void (*RenderBufferedOneXLUSprite)(CVector pos, float w, float h, uint8_t r, uint8_t g, uint8_t b, short intens, float recipZ, uint8_t a);
-
 float StarCoorsX[SSidesCount][AMOUNT_OF_SIDESTARS], StarCoorsY[SSidesCount][AMOUNT_OF_SIDESTARS], StarSizes[SSidesCount][AMOUNT_OF_SIDESTARS];
-float fSmallStars, fMiddleStars, fBiggestStars, fBiggestStarsSpawnChance;
+float fSmallStars = 0.15f, fMiddleStars = 0.6f, fBiggestStars = 1.2f, fBiggestStarsSpawnChance = 20.0f;
 CVector PositionsTable[SSidesCount] =
 {
     { 100.0f,  0.0f,   10.0f}, // Left

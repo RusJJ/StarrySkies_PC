@@ -2,10 +2,10 @@
 
 #define _GTA_VC
 
-#include "ModUtils/MemoryMgr.h"
-#include "ModUtils/MemoryMgr.GTA.h"
+#include "../ModUtils/MemoryMgr.h"
+#include "../ModUtils/MemoryMgr.GTA.h"
 
 bool DoStarrySkiesVC()
 {
-	return false;
+    return false;
 }

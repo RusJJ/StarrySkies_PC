@@ -1,17 +1,39 @@
 ﻿#include "pch.h"
+#include <stdio.h>
 
 bool DoStarrySkiesSA();
 bool DoStarrySkiesVC();
 
 void InitializeThoseStars()
 {
+    // Config Moment
+    int beefSeed = 0xBEEF;
+    char szConfigVar[32];
+    if (GetPrivateProfileStringA("Preferences", "SmallestStarsSize", nullptr, szConfigVar, sizeof(szConfigVar), ".\\StarrySkies.ini") > 0)
+    {
+        fSmallStars = (float)atof(szConfigVar);
+    }
+    if (GetPrivateProfileStringA("Preferences", "MiddleStarsSize", nullptr, szConfigVar, sizeof(szConfigVar), ".\\StarrySkies.ini") > 0)
+    {
+        fMiddleStars = (float)atof(szConfigVar);
+    }
+    if (GetPrivateProfileStringA("Preferences", "BiggestStarsSize", nullptr, szConfigVar, sizeof(szConfigVar), ".\\StarrySkies.ini") > 0)
+    {
+        fBiggestStars = (float)atof(szConfigVar);
+    }
+    if (GetPrivateProfileStringA("Preferences", "BiggestStarsChance", nullptr, szConfigVar, sizeof(szConfigVar), ".\\StarrySkies.ini") > 0)
+    {
+        fBiggestStarsSpawnChance = (float)atof(szConfigVar);
+    }
+    beefSeed = GetPrivateProfileIntA("Preferences", "StarsSeed", beefSeed, ".\\StarrySkies.ini");
+
     // Keeps stars always the same
-    srand(0xBEEF);
+    srand(++beefSeed);
 
     for (int side = 0; side < SSidesCount; ++side)
     {
-        for (int i = 0; i < AMOUNT_OF_SIDESTARS; ++i)
-        {
+        for (int i = 0; i < AMOUNT_OF_SIDESTARS; ++i)        {
+
             StarCoorsX[side][i] = 95.0f * RandomIt(-1.0f, 1.0f);
 
             // Side=4 is when rendering stars directly ABOVE us
@@ -26,6 +48,10 @@ void InitializeThoseStars()
 
     // Makes other rand() calls "more random"
     srand(time(NULL));
+
+    #ifdef _DEBUG
+        MessageBoxA(NULL, "StarrySkies has been loaded! :)", "StarrySkies PC", MB_OK);
+    #endif
 }
 
 BOOL APIENTRY DllMain( HMODULE hModule,
@@ -45,7 +71,6 @@ BOOL APIENTRY DllMain( HMODULE hModule,
             }
         }
         InitializeThoseStars();
-        // MessageBoxA(NULL, "StarrySkies has been loaded! :)", "StarrySkies PC", MB_OK);
         break;
 
     case DLL_THREAD_ATTACH:
