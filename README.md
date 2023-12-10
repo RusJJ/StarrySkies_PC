@@ -5,6 +5,6 @@ Starry Skies is a PC-port of [mobile mod](https://github.com/AndroidModLoader/GT
 
 # What's about support?
 Supported game version is only GTA:SA 1.0 US at the moment.
-The mod has been tested in Modloader by @TheArtemMaps, also with SkyGFX and 2DFX Project.
+The mod has been tested in Modloader by [@TheArtemMaps](https://github.com/TheArtemMaps), also with SkyGFX and 2DFX Project.
 
 ![image](https://github.com/RusJJ/StarrySkies_PC/assets/8864329/0fcb0d8f-d52d-450f-b3fa-6994b48dc78c)
