@@ -64,7 +64,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     case DLL_PROCESS_ATTACH:
         if (!DoStarrySkiesSA() && !DoStarrySkiesVC())
         {
-            MessageBoxA(NULL, "StarrySkies is not supported in this game!\n \nList of supported games:\n- GTA:SA v1.0 US\nGTA:VC (any version)", "StarrySkies PC", MB_ICONERROR);
+            MessageBoxA(NULL, "StarrySkies is not supported in this game!\n \nList of supported games:\n- GTA:SA v1.0 US\n- GTA:VC (any version)", "StarrySkies PC", MB_ICONERROR);
             return FALSE;
         }
         InitializeThoseStars();
