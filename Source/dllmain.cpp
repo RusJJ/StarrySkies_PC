@@ -6,6 +6,9 @@ bool DoStarrySkiesVC();
 
 void InitializeThoseStars()
 {
+    // WideFix
+    bWideFix = (!GetModuleHandleA("GTAVC.WidescreenFix.asi"));
+
     // Config Moment
     int beefSeed = 0xBEEF;
     char szConfigVar[32];
@@ -26,6 +29,8 @@ void InitializeThoseStars()
         fBiggestStarsSpawnChance = (float)atof(szConfigVar);
     }
     beefSeed = GetPrivateProfileIntA("Preferences", "StarsSeed", beefSeed, ".\\StarrySkies.ini");
+    if (GetPrivateProfileIntA("Preferences", "ForceOffWideStarsFix", 0, ".\\StarrySkies.ini") != 0) bWideFix = false;
+    bDisableStars = (bool)GetPrivateProfileIntA("Preferences", "DisableStars", bDisableStars, ".\\StarrySkies.ini");
 
     // Keeps stars always the same
     srand(++beefSeed);
@@ -47,7 +52,7 @@ void InitializeThoseStars()
     }
 
     // Makes other rand() calls "more random"
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
 
     #ifdef _DEBUG
         MessageBoxA(NULL, "StarrySkies has been loaded! :)", "StarrySkies PC", MB_OK);

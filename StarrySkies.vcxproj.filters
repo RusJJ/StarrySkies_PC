@@ -12,6 +12,9 @@
     <Filter Include="Headers\Silent`s ModUtils">
       <UniqueIdentifier>{c9e4831b-a943-4503-9846-3035febf06ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ReadMe">
+      <UniqueIdentifier>{ee2c3f58-5304-4331-b876-cf27df06f23d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModUtils\HookInit.hpp">
@@ -67,5 +70,10 @@
     <ClCompile Include="Source\vc.cpp">
       <Filter>Source Code</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md">
+      <Filter>ReadMe</Filter>
+    </None>
   </ItemGroup>
 </Project>

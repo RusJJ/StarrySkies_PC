@@ -19,6 +19,7 @@ enum eStarSides : uint8_t
 
     SSidesCount
 };
+extern bool bWideFix, bDisableStars;
 extern float StarCoorsX[SSidesCount][AMOUNT_OF_SIDESTARS], StarCoorsY[SSidesCount][AMOUNT_OF_SIDESTARS], StarSizes[SSidesCount][AMOUNT_OF_SIDESTARS];
 extern float fSmallStars, fMiddleStars, fBiggestStars, fBiggestStarsSpawnChance;
 extern CVector PositionsTable[SSidesCount];
