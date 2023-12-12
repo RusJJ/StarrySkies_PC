@@ -19,3 +19,4 @@ The mod has been tested in Modloader by [@TheArtemMaps](https://github.com/TheAr
 - Initial release for GTA:SA US v1.0
 
 ![image](https://github.com/RusJJ/StarrySkies_PC/assets/8864329/0fcb0d8f-d52d-450f-b3fa-6994b48dc78c)
+![image](https://github.com/RusJJ/StarrySkies_PC/assets/8864329/fb740106-e694-4d87-a995-b4bb62474b38)
