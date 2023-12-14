@@ -164,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModUtils\Patterns.cpp" />
+    <ClCompile Include="Source\3.cpp" />
     <ClCompile Include="Source\dllmain.cpp" />
     <ClCompile Include="Source\pch.cpp" />
     <ClCompile Include="Source\sa.cpp" />

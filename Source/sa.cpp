@@ -2,6 +2,7 @@
 
 #define _GTA_SA
 
+#define Memory SAMemory
 #include "../ModUtils/ScopedUnprotect.hpp"
 #include "../ModUtils/MemoryMgr.GTA.h"
 
@@ -22,7 +23,7 @@ static void StarrySkies_Patch()
     CVector& CamPos = (*(CMatrix**)(TheCameraSA + 20))->pos;
     float SZ, SZX, SZY;
 
-    float intensity = 255.0f - 255.0f * ((CloudCoverageSA <= FoggynessSA) ? FoggynessSA : CloudCoverageSA);
+    float intensity = 255.0f - 255.0f * fmaxf(CloudCoverageSA, FoggynessSA);
     if (intensity == 0) return;
 
     if (ms_nGameClockHoursSA == 22) intensity *= 0.01666666666f * ms_nGameClockMinutesSA;
@@ -57,7 +58,7 @@ static void StarrySkies_Patch()
 
             if (CalcScreenCoorsSA(&WorldStarPos, &ScreenPos, &SZX, &SZY, false, true))
             {
-                if (bWideFix) SZX /= ms_fAspectRatioSA;
+                if (bWideFix) SZY *= ms_fAspectRatioSA;
 
                 uint8_t brightness = (uint8_t)((1.0f - 0.015f * (rand() % 32)) * intensity);
                 RenderBufferedOneXLUSpriteSA(ScreenPos, SZX * SZ, SZY * SZ, brightness, brightness, brightness, 255, 1.0f / ScreenPos.z, 255);
@@ -70,13 +71,13 @@ bool DoStarrySkiesSA()
 {
     ScopedUnprotect::Section Protect(GetModuleHandle(nullptr), ".text");
 
-    const int8_t version = Memory::GetVersion().version;
+    const int8_t version = SAMemory::GetVersion().version;
     switch (version)
     {
     case 0:
         #define MEMBASE_P 0x713DDB
-        Memory::InjectHook(MEMBASE_P + 0x0, StarrySkies_Patch, Memory::HookType::Call);
-        Memory::InjectHook(MEMBASE_P + 0x5, 0x714019, Memory::HookType::Jump);
+        SAMemory::InjectHook(MEMBASE_P + 0x0, StarrySkies_Patch, SAMemory::HookType::Call);
+        SAMemory::InjectHook(MEMBASE_P + 0x5, 0x714019, SAMemory::HookType::Jump);
         break;
 
     default: return false;

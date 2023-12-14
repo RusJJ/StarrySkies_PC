@@ -3,11 +3,12 @@
 
 bool DoStarrySkiesSA();
 bool DoStarrySkiesVC();
+bool DoStarrySkiesIII();
 
 void InitializeThoseStars()
 {
     // WideFix
-    bWideFix = (!GetModuleHandleA("GTAVC.WidescreenFix.asi"));
+    bWideFix = (!GetModuleHandleA("GTAVC.WidescreenFix.asi") && !GetModuleHandleA("GTA3.WidescreenFix.asi"));
 
     // Config Moment
     int beefSeed = 0xBEEF;
@@ -67,9 +68,9 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
-        if (!DoStarrySkiesSA() && !DoStarrySkiesVC())
+        if (!DoStarrySkiesSA() && !DoStarrySkiesVC() && !DoStarrySkiesIII())
         {
-            MessageBoxA(NULL, "StarrySkies is not supported in this game!\n \nList of supported games:\n- GTA:SA v1.0 US\n- GTA:VC (any version)", "StarrySkies PC", MB_ICONERROR);
+            MessageBoxA(NULL, "StarrySkies is not supported in this game!\n \nList of supported games:\n- GTA:SA v1.0 US\n- GTA:VC (any version)\n- GTA:III (any version)", "StarrySkies PC", MB_ICONERROR);
             return FALSE;
         }
         InitializeThoseStars();

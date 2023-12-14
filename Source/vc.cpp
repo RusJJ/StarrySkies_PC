@@ -6,7 +6,7 @@
 #include "../ModUtils/ScopedUnprotect.hpp"
 #include "../ModUtils/MemoryMgr.GTA.h"
 
-CVector& CamPos = *AddressByVersion<CVector*>(0x7E46B8, 0x7E46C0, 0x7E36C0);
+CVector& CamPosVC = *AddressByVersion<CVector*>(0x7E46B8, 0x7E46C0, 0x7E36C0);
 auto CalcScreenCoorsVC = AddressByVersion<bool (*)(CVector*, CVector*, float*, float*, bool)>(0x5778B0, 0x5778D0, 0x5777A0);
 auto RenderBufferedOneXLUSpriteVC = AddressByVersion<void(*)(CVector, float, float, uint8_t, uint8_t, uint8_t, short, float, uint8_t)>(0x577350, 0x577370, 0x577240);
 uint8_t& ms_nGameClockMinutesVC = *AddressByVersion<uint8_t*>(0xA10B92, 0xA10B9B, 0xA0FB9C);
@@ -22,7 +22,7 @@ static void StarrySkies_Patch()
     CVector ScreenPos, WorldPos, WorldStarPos;
     float SZ, SZX, SZY;
 
-    float intensity = 255.0f - 255.0f * ((CloudCoverageVC <= FoggynessVC) ? FoggynessVC : CloudCoverageVC);
+    float intensity = 255.0f - 255.0f * fmaxf(CloudCoverageVC, FoggynessVC);
     if (intensity == 0) return;
 
     if (ms_nGameClockHoursVC == 22) intensity *= 0.01666666666f * ms_nGameClockMinutesVC;
@@ -30,7 +30,7 @@ static void StarrySkies_Patch()
 
     for (int side = 0; side < SSidesCount; ++side)
     {
-        WorldPos = PositionsTable[side] + CamPos;
+        WorldPos = PositionsTable[side] + CamPosVC;
         for (int i = 0; i < AMOUNT_OF_SIDESTARS; ++i)
         {
             WorldStarPos = WorldPos;
@@ -57,7 +57,7 @@ static void StarrySkies_Patch()
 
             if (CalcScreenCoorsVC(&WorldStarPos, &ScreenPos, &SZX, &SZY, false))
             {
-                if (bWideFix) SZX /= ms_fAspectRatioVC;
+                if (bWideFix) SZY *= ms_fAspectRatioVC;
 
                 uint8_t brightness = (uint8_t)((1.0f - 0.015f * (rand() % 32)) * intensity);
                 RenderBufferedOneXLUSpriteVC(ScreenPos, SZX * SZ, SZY * SZ, brightness, brightness, brightness, 255, 1.0f / ScreenPos.z, 255);

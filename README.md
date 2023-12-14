@@ -4,10 +4,13 @@
 Starry Skies is a PC-port of [mobile mod](https://github.com/AndroidModLoader/GTA_StarrySkies). The original mod is adding way more stars and replaces the default R-shaped "picture"
 
 # What's about support?
-Supported game version is GTA:SA 1.0 US and all versions of GTA:VC. ASI is universal for all games.
+Supported game version is GTA:SA 1.0 US and all versions of GTA:VC and GTA:III. ASI is universal for all games.
 The mod has been tested in Modloader by [@TheArtemMaps](https://github.com/TheArtemMaps), also with SkyGFX and 2DFX Project.
 
 # Changelog
+## v1.2
+- GTA III support (all versions)
+
 ## v1.1
 - Vice City support (all versions)
 - Smooth Stars appearance
