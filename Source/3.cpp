@@ -58,7 +58,7 @@ static void StarrySkies_Patch()
 
             if (CalcScreenCoorsIII(&WorldStarPos, &ScreenPos, &SZX, &SZY, false))
             {
-                if (bWideFix) SZY *= ms_fAspectRatioIII;
+                if (bWideFix) SZX /= ms_fAspectRatioIII;
 
                 uint8_t brightness = (uint8_t)((1.0f - 0.015f * (rand() % 32)) * intensity);
                 RenderBufferedOneXLUSpriteIII(ScreenPos, SZX * SZ, SZY * SZ, brightness, brightness, brightness, 255, 1.0f / ScreenPos.z, 255);
