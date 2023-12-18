@@ -26,8 +26,8 @@ static void StarrySkies_Patch()
     float intensity = 255.0f - 255.0f * fmaxf(CloudCoverageIII, FoggynessIII);
     if (intensity == 0) return;
 
-    if (ms_nGameClockHoursIII == 22) intensity *= 0.01666666666f * ms_nGameClockMinutesIII;
-    else if (ms_nGameClockHoursIII == 5) intensity *= 0.01666666666f * (60 - ms_nGameClockMinutesIII);
+    if (ms_nGameClockHoursIII == nStarsHourStart) intensity *= 0.01666666666f * ms_nGameClockMinutesIII;
+    else if (ms_nGameClockHoursIII == nStarsHourLast) intensity *= 0.01666666666f * (60 - ms_nGameClockMinutesIII);
 
     for (int side = 0; side < SSidesCount; ++side)
     {
