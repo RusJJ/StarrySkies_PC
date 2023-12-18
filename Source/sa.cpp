@@ -26,8 +26,8 @@ static void StarrySkies_Patch()
     float intensity = 255.0f - 255.0f * fmaxf(CloudCoverageSA, FoggynessSA);
     if (intensity == 0) return;
 
-    if (ms_nGameClockHoursSA == 22) intensity *= 0.01666666666f * ms_nGameClockMinutesSA;
-    else if(ms_nGameClockHoursSA == 5) intensity *= 0.01666666666f * (60 - ms_nGameClockMinutesSA);
+    if (ms_nGameClockHoursSA == nStarsHourStart) intensity *= 0.01666666666f * ms_nGameClockMinutesSA;
+    else if(ms_nGameClockHoursSA == nStarsHourLast) intensity *= 0.01666666666f * (60 - ms_nGameClockMinutesSA);
 
     for (int side = 0; side < SSidesCount; ++side)
     {
@@ -78,6 +78,14 @@ bool DoStarrySkiesSA()
         #define MEMBASE_P 0x713DDB
         SAMemory::InjectHook(MEMBASE_P + 0x0, StarrySkies_Patch, SAMemory::HookType::Call);
         SAMemory::InjectHook(MEMBASE_P + 0x5, 0x714019, SAMemory::HookType::Jump);
+
+        // Custom stars time
+        *(uint8_t*)(0x713D2C) = nStarsHourStart;
+        *(uint8_t*)(0x713D3A) = nStarsHourStart;
+        *(uint8_t*)(0x713D44) = nStarsHourStart;
+        *(uint8_t*)(0x713D31) = nStarsHourLast;
+        *(uint8_t*)(0x713D3F) = nStarsHourLast;
+
         break;
 
     default: return false;

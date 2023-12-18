@@ -23,6 +23,7 @@ extern bool bWideFix, bDisableStars;
 extern float StarCoorsX[SSidesCount][AMOUNT_OF_SIDESTARS], StarCoorsY[SSidesCount][AMOUNT_OF_SIDESTARS], StarSizes[SSidesCount][AMOUNT_OF_SIDESTARS];
 extern float fSmallStars, fMiddleStars, fBiggestStars, fBiggestStarsSpawnChance;
 extern CVector PositionsTable[SSidesCount];
+extern uint8_t nStarsHourStart, nStarsHourLast;
 
 #define RandomIt(_min, _max) ((((float)rand()) / (float)RAND_MAX) * (_max - _min) + _min)
 

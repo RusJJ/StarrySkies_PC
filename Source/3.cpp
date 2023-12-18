@@ -78,6 +78,13 @@ bool DoStarrySkiesIII()
         #define MEMBASE_P 0x4F7100
         IIIMemory::InjectHook(MEMBASE_P + 0x0, StarrySkies_Patch, IIIMemory::HookType::Call);
         IIIMemory::InjectHook(MEMBASE_P + 0x5, 0x4F73E2, IIIMemory::HookType::Jump);
+
+        // Custom stars time
+        *(uint8_t*)(0x4F701E) = nStarsHourStart;
+        *(uint8_t*)(0x4F7036) = nStarsHourStart;
+        *(uint8_t*)(0x4F7056) = nStarsHourStart;
+        *(uint8_t*)(0x4F7027) = nStarsHourLast;
+        *(uint8_t*)(0x4F703F) = nStarsHourLast;
         break;
 
     case 1:
@@ -85,6 +92,13 @@ bool DoStarrySkiesIII()
         #define MEMBASE_P 0x4F71E0
         IIIMemory::InjectHook(MEMBASE_P + 0x0, StarrySkies_Patch, IIIMemory::HookType::Call);
         IIIMemory::InjectHook(MEMBASE_P + 0x5, 0x4F74C2, IIIMemory::HookType::Jump);
+
+        // Custom stars time
+        *(uint8_t*)(0x4F70FE) = nStarsHourStart;
+        *(uint8_t*)(0x4F7116) = nStarsHourStart;
+        *(uint8_t*)(0x4F7136) = nStarsHourStart;
+        *(uint8_t*)(0x4F7107) = nStarsHourLast;
+        *(uint8_t*)(0x4F711F) = nStarsHourLast;
         break;
 
     case 2:
@@ -92,6 +106,13 @@ bool DoStarrySkiesIII()
         #define MEMBASE_P 0x4F7170
         IIIMemory::InjectHook(MEMBASE_P + 0x0, StarrySkies_Patch, IIIMemory::HookType::Call);
         IIIMemory::InjectHook(MEMBASE_P + 0x5, 0x4F7452, IIIMemory::HookType::Jump);
+
+        // Custom stars time
+        *(uint8_t*)(0x4F708E) = nStarsHourStart;
+        *(uint8_t*)(0x4F70A6) = nStarsHourStart;
+        *(uint8_t*)(0x4F70C6) = nStarsHourStart;
+        *(uint8_t*)(0x4F7097) = nStarsHourLast;
+        *(uint8_t*)(0x4F70AF) = nStarsHourLast;
         break;
 
     default: return false;

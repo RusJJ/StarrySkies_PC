@@ -3,6 +3,7 @@
 bool bWideFix = true, bDisableStars = false;
 float StarCoorsX[SSidesCount][AMOUNT_OF_SIDESTARS], StarCoorsY[SSidesCount][AMOUNT_OF_SIDESTARS], StarSizes[SSidesCount][AMOUNT_OF_SIDESTARS];
 float fSmallStars = 0.15f, fMiddleStars = 0.6f, fBiggestStars = 1.2f, fBiggestStarsSpawnChance = 20.0f;
+uint8_t nStarsHourStart = 22, nStarsHourLast = 5;
 CVector PositionsTable[SSidesCount] =
 {
     { 100.0f,  0.0f,   10.0f}, // Left

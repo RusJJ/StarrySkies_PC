@@ -5,6 +5,11 @@ bool DoStarrySkiesSA();
 bool DoStarrySkiesVC();
 bool DoStarrySkiesIII();
 
+__declspec(dllexport) int GetMyVersion()
+{
+    return 0x010201; // 1.2.1
+}
+
 void InitializeThoseStars()
 {
     // WideFix
@@ -33,13 +38,21 @@ void InitializeThoseStars()
     if (GetPrivateProfileIntA("Preferences", "ForceOffWideStarsFix", 0, ".\\StarrySkies.ini") != 0) bWideFix = false;
     bDisableStars = (bool)GetPrivateProfileIntA("Preferences", "DisableStars", bDisableStars, ".\\StarrySkies.ini");
 
+    nStarsHourStart = GetPrivateProfileIntA("Preferences", "StarsStartHour", nStarsHourStart, ".\\StarrySkies.ini");
+    nStarsHourLast = GetPrivateProfileIntA("Preferences", "StarsLastHour", nStarsHourLast, ".\\StarrySkies.ini");
+    if (nStarsHourStart <= nStarsHourLast || nStarsHourStart > 23 || nStarsHourLast > 23)
+    {
+        nStarsHourStart = 22;
+        nStarsHourLast = 5;
+    }
+
     // Keeps stars always the same
     srand(++beefSeed);
 
     for (int side = 0; side < SSidesCount; ++side)
     {
-        for (int i = 0; i < AMOUNT_OF_SIDESTARS; ++i)        {
-
+        for (int i = 0; i < AMOUNT_OF_SIDESTARS; ++i)
+        {
             StarCoorsX[side][i] = 95.0f * RandomIt(-1.0f, 1.0f);
 
             // Side=4 is when rendering stars directly ABOVE us
@@ -54,10 +67,6 @@ void InitializeThoseStars()
 
     // Makes other rand() calls "more random"
     srand((unsigned int)time(NULL));
-
-    #ifdef _DEBUG
-        MessageBoxA(NULL, "StarrySkies has been loaded! :)", "StarrySkies PC", MB_OK);
-    #endif
 }
 
 BOOL APIENTRY DllMain( HMODULE hModule,
@@ -68,12 +77,15 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
+        InitializeThoseStars();
         if (!DoStarrySkiesSA() && !DoStarrySkiesVC() && !DoStarrySkiesIII())
         {
             MessageBoxA(NULL, "StarrySkies is not supported in this game!\n \nList of supported games:\n- GTA:SA v1.0 US\n- GTA:VC (any version)\n- GTA:III (any version)", "StarrySkies PC", MB_ICONERROR);
             return FALSE;
         }
-        InitializeThoseStars();
+      #ifdef _DEBUG
+        MessageBoxA(NULL, "StarrySkies has been loaded! :)", "StarrySkies PC", MB_OK);
+      #endif
         break;
 
     case DLL_THREAD_ATTACH:

@@ -77,6 +77,13 @@ bool DoStarrySkiesVC()
         #define MEMBASE_P 0x540000
         VCMemory::InjectHook(MEMBASE_P + 0x0, StarrySkies_Patch, VCMemory::HookType::Call);
         VCMemory::InjectHook(MEMBASE_P + 0x5, 0x54033F, VCMemory::HookType::Jump);
+
+        // Custom stars time
+        *(uint8_t*)(0x53FF09) = nStarsHourStart;
+        *(uint8_t*)(0x53FF26) = nStarsHourStart;
+        *(uint8_t*)(0x53FF46) = nStarsHourStart;
+        *(uint8_t*)(0x53FF12) = nStarsHourLast;
+        *(uint8_t*)(0x53FF2F) = nStarsHourLast;
         break;
 
     case 1:
@@ -84,6 +91,13 @@ bool DoStarrySkiesVC()
         #define MEMBASE_P 0x540020
         VCMemory::InjectHook(MEMBASE_P + 0x0, StarrySkies_Patch, VCMemory::HookType::Call);
         VCMemory::InjectHook(MEMBASE_P + 0x5, 0x54035F, VCMemory::HookType::Jump);
+
+        // Custom stars time
+        *(uint8_t*)(0x53FF29) = nStarsHourStart;
+        *(uint8_t*)(0x53FF46) = nStarsHourStart;
+        *(uint8_t*)(0x53FF66) = nStarsHourStart;
+        *(uint8_t*)(0x53FF32) = nStarsHourLast;
+        *(uint8_t*)(0x53FF4F) = nStarsHourLast;
         break;
 
     case 2:
@@ -91,6 +105,13 @@ bool DoStarrySkiesVC()
         #define MEMBASE_P 0x53FEF0
         VCMemory::InjectHook(MEMBASE_P + 0x0, StarrySkies_Patch, VCMemory::HookType::Call);
         VCMemory::InjectHook(MEMBASE_P + 0x5, 0x54022F, VCMemory::HookType::Jump);
+
+        // Custom stars time
+        *(uint8_t*)(0x53FDF9) = nStarsHourStart;
+        *(uint8_t*)(0x53FE16) = nStarsHourStart;
+        *(uint8_t*)(0x53FE36) = nStarsHourStart;
+        *(uint8_t*)(0x53FE02) = nStarsHourLast;
+        *(uint8_t*)(0x53FE2F) = nStarsHourLast;
         break;
 
     default: return false;
