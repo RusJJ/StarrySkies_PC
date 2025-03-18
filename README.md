@@ -1,13 +1,19 @@
 [![AML PC Mod Compiler](https://github.com/RusJJ/StarrySkies_PC/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/RusJJ/StarrySkies_PC/actions/workflows/main.yml)
 
 # About myself
-Starry Skies is a PC-port of [mobile mod](https://github.com/AndroidModLoader/GTA_StarrySkies). The original mod is adding way more stars and replaces the default R-shaped "picture"
+Starry Skies is a PC-port of [mobile mod (clickable link)](https://github.com/AndroidModLoader/GTA_StarrySkies). The original mod is adding way more stars and replaces the default R-shaped "picture"
 
 # What's about support?
-Supported game version is GTA:SA 1.0 US and all versions of GTA:VC and GTA:III. ASI is universal for all games.
+Supported game version is **GTA:SA 1.0 US __only__** and all versions of GTA:VC and GTA:III. ASI is universal for all games.
 The mod has been tested in Modloader by [@TheArtemMaps](https://github.com/TheArtemMaps), also with SkyGFX and 2DFX Project.
 
 # Changelog
+## v1.2.2
+- User requested feature: bring back R\* logo easter egg
+
+## v1.2.1
+- User requested feature: chengeable hour of start/end
+
 ## v1.2
 - GTA III support (all versions)
 
