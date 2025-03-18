@@ -6,7 +6,7 @@
 #include "../ModUtils/ScopedUnprotect.hpp"
 #include "../ModUtils/MemoryMgr.GTA.h"
 
-char* TheCameraSA = AddressByVersion<char*>(0xB6F028, 0, 0);
+char* TheCameraSA = AddressByVersion<char*>(0xB6F028, 0xB716A8, 0);
 auto CalcScreenCoorsSA = AddressByVersion<bool (*)(CVector*, CVector*, float*, float*, bool, bool)>(0x70CE30, 0, 0);
 auto RenderBufferedOneXLUSpriteSA = AddressByVersion<void(*)(CVector, float, float, uint8_t, uint8_t, uint8_t, short, float, uint8_t)>(0x70E4A0, 0, 0);
 uint8_t& ms_nGameClockMinutesSA = *AddressByVersion<uint8_t*>(0xB70152, 0, 0);
@@ -20,7 +20,7 @@ static void StarrySkies_Patch()
     if (bDisableStars) return;
 
     CVector ScreenPos, WorldPos, WorldStarPos;
-    CVector& CamPos = (*(CMatrix**)(TheCameraSA + 20))->pos;
+    CVector& CamPosSA = (*(CMatrix**)(TheCameraSA + 20))->pos;
     float SZ, SZX, SZY;
 
     float intensity = 255.0f - 255.0f * fmaxf(CloudCoverageSA, FoggynessSA);
@@ -31,7 +31,7 @@ static void StarrySkies_Patch()
 
     for (int side = 0; side < SSidesCount; ++side)
     {
-        WorldPos = PositionsTable[side] + CamPos;
+        WorldPos = PositionsTable[side] + CamPosSA;
         for (int i = 0; i < AMOUNT_OF_SIDESTARS; ++i)
         {
             WorldStarPos = WorldPos;
@@ -63,6 +63,36 @@ static void StarrySkies_Patch()
                 uint8_t brightness = (uint8_t)((1.0f - 0.015f * (rand() % 32)) * intensity);
                 RenderBufferedOneXLUSpriteSA(ScreenPos, SZX * SZ, SZY * SZ, brightness, brightness, brightness, 255, 1.0f / ScreenPos.z, 255);
             }
+        }
+    }
+
+    if (bDrawEasterEgg)
+    {
+        for (int i = 0; i < 9; ++i)
+        {
+            SZ = RockStar_StarSize[i];
+            WorldPos = CamPosSA;
+            WorldPos.x += 100.0f;
+            WorldPos.y -= RockStar_StarX[i];
+            WorldPos.z += RockStar_StarY[i];
+
+            if (CalcScreenCoorsSA(&WorldPos, &ScreenPos, &SZX, &SZY, false, true))
+            {
+                if (bWideFix) SZX /= ms_fAspectRatioSA;
+
+                uint8_t brightness = (uint8_t)((1.0f - 0.015f * (rand() % 32)) * intensity);
+                RenderBufferedOneXLUSpriteSA(ScreenPos, SZX * SZ, SZY * SZ, brightness, brightness, brightness, 255, 1.0f / ScreenPos.z, 255);
+            }
+        }
+
+        SZ = 5.0f;
+        WorldPos = CamPosSA + RockStar_MainStarOff;
+        if (CalcScreenCoorsSA(&WorldPos, &ScreenPos, &SZX, &SZY, false, true))
+        {
+            if (bWideFix) SZX /= ms_fAspectRatioSA;
+
+            uint8_t brightness = (uint8_t)((1.5f - 0.00156f * (rand() % 128)) * intensity);
+            RenderBufferedOneXLUSpriteSA(ScreenPos, SZX * SZ, SZY * SZ, brightness, brightness, brightness, 255, 1.0f / ScreenPos.z, 255);
         }
     }
 }

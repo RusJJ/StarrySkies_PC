@@ -8,6 +8,8 @@
 
 #include "SimpleGTA.h"
 
+#define CONFIG_FILENAME "StarrySkies"
+
 #define AMOUNT_OF_SIDESTARS 100
 enum eStarSides : uint8_t
 {
@@ -19,11 +21,13 @@ enum eStarSides : uint8_t
 
     SSidesCount
 };
-extern bool bWideFix, bDisableStars;
+extern bool bWideFix, bDisableStars, bDrawEasterEgg;
 extern float StarCoorsX[SSidesCount][AMOUNT_OF_SIDESTARS], StarCoorsY[SSidesCount][AMOUNT_OF_SIDESTARS], StarSizes[SSidesCount][AMOUNT_OF_SIDESTARS];
 extern float fSmallStars, fMiddleStars, fBiggestStars, fBiggestStarsSpawnChance;
 extern CVector PositionsTable[SSidesCount];
 extern uint8_t nStarsHourStart, nStarsHourLast;
+extern float RockStar_StarX[9], RockStar_StarY[9], RockStar_StarSize[9];
+extern CVector RockStar_MainStarOff;
 
 #define RandomIt(_min, _max) ((((float)rand()) / (float)RAND_MAX) * (_max - _min) + _min)
 

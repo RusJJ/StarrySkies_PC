@@ -65,6 +65,36 @@ static void StarrySkies_Patch()
             }
         }
     }
+
+    if (bDrawEasterEgg)
+    {
+        for (int i = 0; i < 9; ++i)
+        {
+            SZ = RockStar_StarSize[i];
+            WorldPos = CamPosIII;
+            WorldPos.x += 100.0f;
+            WorldPos.y -= RockStar_StarX[i];
+            WorldPos.z += RockStar_StarY[i];
+
+            if (CalcScreenCoorsIII(&WorldPos, &ScreenPos, &SZX, &SZY, false))
+            {
+                if (bWideFix) SZX /= ms_fAspectRatioIII;
+
+                uint8_t brightness = (uint8_t)((1.0f - 0.015f * (rand() % 32)) * intensity);
+                RenderBufferedOneXLUSpriteIII(ScreenPos, SZX * SZ, SZY * SZ, brightness, brightness, brightness, 255, 1.0f / ScreenPos.z, 255);
+            }
+        }
+
+        SZ = 5.0f;
+        WorldPos = CamPosIII + RockStar_MainStarOff;
+        if (CalcScreenCoorsIII(&WorldPos, &ScreenPos, &SZX, &SZY, false))
+        {
+            if (bWideFix) SZX /= ms_fAspectRatioIII;
+
+            uint8_t brightness = (uint8_t)((1.5f - 0.00156f * (rand() % 128)) * intensity);
+            RenderBufferedOneXLUSpriteIII(ScreenPos, SZX * SZ, SZY * SZ, brightness, brightness, brightness, 255, 1.0f / ScreenPos.z, 255);
+        }
+    }
 }
 
 bool DoStarrySkiesIII()

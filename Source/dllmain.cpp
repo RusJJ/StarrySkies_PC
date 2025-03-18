@@ -7,7 +7,7 @@ bool DoStarrySkiesIII();
 
 __declspec(dllexport) int GetMyVersion()
 {
-    return 0x010201; // 1.2.1
+    return 0x010202; // 1.2.2
 }
 
 void InitializeThoseStars()
@@ -17,29 +17,30 @@ void InitializeThoseStars()
 
     // Config Moment
     int beefSeed = 0xBEEF;
-    char szConfigVar[32];
-    if (GetPrivateProfileStringA("Preferences", "SmallestStarsSize", nullptr, szConfigVar, sizeof(szConfigVar), ".\\StarrySkies.ini") > 0)
+    char szConfigVar[32] { 0 };
+    if (GetPrivateProfileStringA("Preferences", "SmallestStarsSize", nullptr, szConfigVar, sizeof(szConfigVar), ".\\" CONFIG_FILENAME ".ini") > 0)
     {
         fSmallStars = (float)atof(szConfigVar);
     }
-    if (GetPrivateProfileStringA("Preferences", "MiddleStarsSize", nullptr, szConfigVar, sizeof(szConfigVar), ".\\StarrySkies.ini") > 0)
+    if (GetPrivateProfileStringA("Preferences", "MiddleStarsSize", nullptr, szConfigVar, sizeof(szConfigVar), ".\\" CONFIG_FILENAME ".ini") > 0)
     {
         fMiddleStars = (float)atof(szConfigVar);
     }
-    if (GetPrivateProfileStringA("Preferences", "BiggestStarsSize", nullptr, szConfigVar, sizeof(szConfigVar), ".\\StarrySkies.ini") > 0)
+    if (GetPrivateProfileStringA("Preferences", "BiggestStarsSize", nullptr, szConfigVar, sizeof(szConfigVar), ".\\" CONFIG_FILENAME ".ini") > 0)
     {
         fBiggestStars = (float)atof(szConfigVar);
     }
-    if (GetPrivateProfileStringA("Preferences", "BiggestStarsChance", nullptr, szConfigVar, sizeof(szConfigVar), ".\\StarrySkies.ini") > 0)
+    if (GetPrivateProfileStringA("Preferences", "BiggestStarsChance", nullptr, szConfigVar, sizeof(szConfigVar), ".\\" CONFIG_FILENAME ".ini") > 0)
     {
         fBiggestStarsSpawnChance = (float)atof(szConfigVar);
     }
-    beefSeed = GetPrivateProfileIntA("Preferences", "StarsSeed", beefSeed, ".\\StarrySkies.ini");
-    if (GetPrivateProfileIntA("Preferences", "ForceOffWideStarsFix", 0, ".\\StarrySkies.ini") != 0) bWideFix = false;
-    bDisableStars = (bool)GetPrivateProfileIntA("Preferences", "DisableStars", bDisableStars, ".\\StarrySkies.ini");
+    beefSeed = GetPrivateProfileIntA("Preferences", "StarsSeed", beefSeed, ".\\" CONFIG_FILENAME ".ini");
+    if (GetPrivateProfileIntA("Preferences", "ForceOffWideStarsFix", 0, ".\\" CONFIG_FILENAME ".ini") != 0) bWideFix = false;
+    bDisableStars = (bool)GetPrivateProfileIntA("Preferences", "DisableStars", bDisableStars, ".\\" CONFIG_FILENAME ".ini");
+    bDrawEasterEgg = (bool)GetPrivateProfileIntA("Preferences", "ShowEasterEgg", bDrawEasterEgg, ".\\" CONFIG_FILENAME ".ini");
 
-    nStarsHourStart = GetPrivateProfileIntA("Preferences", "StarsStartHour", nStarsHourStart, ".\\StarrySkies.ini");
-    nStarsHourLast = GetPrivateProfileIntA("Preferences", "StarsLastHour", nStarsHourLast, ".\\StarrySkies.ini");
+    nStarsHourStart = GetPrivateProfileIntA("Preferences", "StarsStartHour", nStarsHourStart, ".\\" CONFIG_FILENAME ".ini");
+    nStarsHourLast = GetPrivateProfileIntA("Preferences", "StarsLastHour", nStarsHourLast, ".\\" CONFIG_FILENAME ".ini");
     if (nStarsHourStart <= nStarsHourLast || nStarsHourStart > 23 || nStarsHourLast > 23)
     {
         nStarsHourStart = 22;
@@ -62,6 +63,21 @@ void InitializeThoseStars()
             // Smaller chances for a bigger star (this is more life-like)
             if (RandomIt(0.0f, 1.0f) > fBiggestStarsSpawnChance) StarSizes[side][i] = 0.8f * RandomIt(fSmallStars, fBiggestStars);
             else StarSizes[side][i] = 0.8f * RandomIt(fSmallStars, fMiddleStars);
+        }
+    }
+
+    // Useless calculations in a rendering order
+    for (int i = 0; i < 9; ++i)
+    {
+        RockStar_StarX[i] *= 90.0f;
+        RockStar_StarY[i] *= 80.0f;
+        RockStar_StarY[i] += 10.0f;
+        RockStar_StarSize[i] *= 0.8f;
+
+        // Stars are blending with the others, small fix is gonna be like this:
+        if (fBiggestStars > 1.0f)
+        {
+            RockStar_StarSize[i] *= fBiggestStars;
         }
     }
 
