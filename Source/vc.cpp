@@ -9,11 +9,18 @@
 CVector& CamPosVC = *AddressByVersion<CVector*>(0x7E46B8, 0x7E46C0, 0x7E36C0);
 auto CalcScreenCoorsVC = AddressByVersion<bool (*)(CVector*, CVector*, float*, float*, bool)>(0x5778B0, 0x5778D0, 0x5777A0);
 auto RenderBufferedOneXLUSpriteVC = AddressByVersion<void(*)(CVector, float, float, uint8_t, uint8_t, uint8_t, short, float, uint8_t)>(0x577350, 0x577370, 0x577240);
+auto RwIm3DTransformVC = *AddressByVersion<void* (*)(RwIm3DVertex*, uint32_t, CMatrix*, uint32_t)>(0x65AE90, 0x65AEE0, 0x659E40);
+auto RwIm3DRenderIndexedPrimitiveVC = *AddressByVersion<void* (*)(int, int16_t*, int)>(0x65AF90, 0x65AFE0, 0x659F40);
+auto RwIm3DEndVC = *AddressByVersion<int (*)()>(0x65AF60, 0x65AFB0, 0x659F10);
+auto RwRenderStateSetVC = AddressByVersion<int(*)(int, void*)>(0x649BA0, 0x649BF0, 0x648B50);
+auto FlushSpriteBufferVC = AddressByVersion<void(*)()>(0x577790, 0x5777B0, 0x577680);
 uint8_t& ms_nGameClockMinutesVC = *AddressByVersion<uint8_t*>(0xA10B92, 0xA10B9B, 0xA0FB9C);
 uint8_t& ms_nGameClockHoursVC = *AddressByVersion<uint8_t*>(0xA10B6B, 0xA10B74, 0xA0FB75);
 float& FoggynessVC = *AddressByVersion<float*>(0x94DDC0, 0x94DDC8, 0x94CDC8);
 float& CloudCoverageVC = *AddressByVersion<float*>(0x974BE8, 0x974BF0, 0x973BF0);
 float& ms_fAspectRatioVC = *AddressByVersion<float*>(0x94DD38, 0x94DD40, 0x94CD40);
+uint32_t& m_snTimeInMillisecondsVC = *AddressByVersion<uint32_t*>(0x974B2C, 0x974B34, 0x973B34);
+int16_t& NewWeatherTypeVC = *AddressByVersion<int16_t*>(0xA10A2E, 0xA10A36, 0xA0FA36);
 
 static void StarrySkies_Patch()
 {
@@ -23,7 +30,7 @@ static void StarrySkies_Patch()
     float SZ, SZX, SZY;
 
     float intensity = 255.0f - 255.0f * fmaxf(CloudCoverageVC, FoggynessVC);
-    if (intensity == 0) return;
+    if (intensity <= 0) return;
 
     if (ms_nGameClockHoursVC == nStarsHourStart) intensity *= 0.01666666666f * ms_nGameClockMinutesVC;
     else if (ms_nGameClockHoursVC == nStarsHourLast) intensity *= 0.01666666666f * (60 - ms_nGameClockMinutesVC);
@@ -64,6 +71,7 @@ static void StarrySkies_Patch()
             }
         }
     }
+    FlushSpriteBufferVC();
 
     if (bDrawEasterEgg)
     {
@@ -93,6 +101,7 @@ static void StarrySkies_Patch()
             uint8_t brightness = (uint8_t)((1.5f - 0.00156f * (rand() % 128)) * intensity);
             RenderBufferedOneXLUSpriteVC(ScreenPos, SZX * SZ, SZY * SZ, brightness, brightness, brightness, 255, 1.0f / ScreenPos.z, 255);
         }
+        FlushSpriteBufferVC();
     }
 }
 
@@ -114,6 +123,10 @@ bool DoStarrySkiesVC()
         *(uint8_t*)(0x53FF46) = nStarsHourStart;
         *(uint8_t*)(0x53FF12) = nStarsHourLast;
         *(uint8_t*)(0x53FF2F) = nStarsHourLast;
+
+        // Fixing a rainbow!
+        *(uint8_t*)(0x540C4A + 1) = 0x85;
+
         break;
 
     case 1:
@@ -128,6 +141,10 @@ bool DoStarrySkiesVC()
         *(uint8_t*)(0x53FF66) = nStarsHourStart;
         *(uint8_t*)(0x53FF32) = nStarsHourLast;
         *(uint8_t*)(0x53FF4F) = nStarsHourLast;
+
+        // Fixing a rainbow!
+        *(uint8_t*)(0x540C6A + 1) = 0x85;
+
         break;
 
     case 2:
@@ -142,6 +159,10 @@ bool DoStarrySkiesVC()
         *(uint8_t*)(0x53FE36) = nStarsHourStart;
         *(uint8_t*)(0x53FE02) = nStarsHourLast;
         *(uint8_t*)(0x53FE2F) = nStarsHourLast;
+
+        // Fixing a rainbow!
+        *(uint8_t*)(0x540B3A + 1) = 0x85;
+
         break;
 
     default: return false;

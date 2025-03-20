@@ -9,6 +9,8 @@
 char* TheCameraSA = AddressByVersion<char*>(0xB6F028, 0xB716A8, 0);
 auto CalcScreenCoorsSA = AddressByVersion<bool (*)(CVector*, CVector*, float*, float*, bool, bool)>(0x70CE30, 0, 0);
 auto RenderBufferedOneXLUSpriteSA = AddressByVersion<void(*)(CVector, float, float, uint8_t, uint8_t, uint8_t, short, float, uint8_t)>(0x70E4A0, 0, 0);
+auto RwIm3DRenderIndexedPrimitiveSA = AddressByVersion<int(*)(int, int16_t*, int)>(0x7EF550, 0, 0);
+auto RwRenderStateSetSA = AddressByVersion<int(*)(int, void*)>(0x7FE420, 0, 0);
 uint8_t& ms_nGameClockMinutesSA = *AddressByVersion<uint8_t*>(0xB70152, 0, 0);
 uint8_t& ms_nGameClockHoursSA = *AddressByVersion<uint8_t*>(0xB70153, 0, 0);
 float& FoggynessSA = *AddressByVersion<float*>(0xC81300, 0, 0);
@@ -24,7 +26,7 @@ static void StarrySkies_Patch()
     float SZ, SZX, SZY;
 
     float intensity = 255.0f - 255.0f * fmaxf(CloudCoverageSA, FoggynessSA);
-    if (intensity == 0) return;
+    if (intensity <= 0) return;
 
     if (ms_nGameClockHoursSA == nStarsHourStart) intensity *= 0.01666666666f * ms_nGameClockMinutesSA;
     else if(ms_nGameClockHoursSA == nStarsHourLast) intensity *= 0.01666666666f * (60 - ms_nGameClockMinutesSA);
@@ -97,6 +99,12 @@ static void StarrySkies_Patch()
     }
 }
 
+static void ShootingStars_v10_Patch(int primType, int16_t* indices, int numIndices)
+{
+    RwRenderStateSetSA(1, NULL);
+    RwIm3DRenderIndexedPrimitiveSA(primType, indices, numIndices);
+}
+
 bool DoStarrySkiesSA()
 {
     ScopedUnprotect::Section Protect(GetModuleHandle(nullptr), ".text");
@@ -115,6 +123,17 @@ bool DoStarrySkiesSA()
         *(uint8_t*)(0x713D44) = nStarsHourStart;
         *(uint8_t*)(0x713D31) = nStarsHourLast;
         *(uint8_t*)(0x713D3F) = nStarsHourLast;
+
+        if (bDrawFallingStar)
+        {
+            // Fix shooting stars if we dont have a SilentPatch
+            SAMemory::InjectHook(0x714625, ShootingStars_v10_Patch, SAMemory::HookType::Call);
+        }
+        else
+        {
+            // As we have falling stars already, give an ability to turn them off
+            SAMemory::InjectHook(0x71438C, 0x714639, SAMemory::HookType::Jump);
+        }
 
         break;
 

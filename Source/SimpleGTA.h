@@ -57,3 +57,10 @@ public:
     bool         m_bOwnsAttachedMatrix;
     char         matrixpad[3];
 };
+
+struct RwIm3DVertex
+{
+    CVector pos, normal;
+    uint32_t color;
+    float u, v;
+};

@@ -21,13 +21,17 @@ enum eStarSides : uint8_t
 
     SSidesCount
 };
-extern bool bWideFix, bDisableStars, bDrawEasterEgg;
+extern bool bWideFix, bDisableStars, bDrawEasterEgg, bDrawFallingStar;
 extern float StarCoorsX[SSidesCount][AMOUNT_OF_SIDESTARS], StarCoorsY[SSidesCount][AMOUNT_OF_SIDESTARS], StarSizes[SSidesCount][AMOUNT_OF_SIDESTARS];
 extern float fSmallStars, fMiddleStars, fBiggestStars, fBiggestStarsSpawnChance;
 extern CVector PositionsTable[SSidesCount];
 extern uint8_t nStarsHourStart, nStarsHourLast;
 extern float RockStar_StarX[9], RockStar_StarY[9], RockStar_StarSize[9];
 extern CVector RockStar_MainStarOff;
+extern int16_t pShootingStarIndices[];
+
+extern RwIm3DVertex Skies_TempBufferRenderVertices[32];
+extern int Skies_TempBufferVerts;
 
 #define RandomIt(_min, _max) ((((float)rand()) / (float)RAND_MAX) * (_max - _min) + _min)
 

@@ -7,7 +7,7 @@ bool DoStarrySkiesIII();
 
 __declspec(dllexport) int GetMyVersion()
 {
-    return 0x010202; // 1.2.2
+    return 0x010300; // 1.3.0
 }
 
 void InitializeThoseStars()
@@ -38,6 +38,7 @@ void InitializeThoseStars()
     if (GetPrivateProfileIntA("Preferences", "ForceOffWideStarsFix", 0, ".\\" CONFIG_FILENAME ".ini") != 0) bWideFix = false;
     bDisableStars = (bool)GetPrivateProfileIntA("Preferences", "DisableStars", bDisableStars, ".\\" CONFIG_FILENAME ".ini");
     bDrawEasterEgg = (bool)GetPrivateProfileIntA("Preferences", "ShowEasterEgg", bDrawEasterEgg, ".\\" CONFIG_FILENAME ".ini");
+    bDrawFallingStar = (bool)GetPrivateProfileIntA("Preferences", "ShowFallingStars", bDrawFallingStar, ".\\" CONFIG_FILENAME ".ini");
 
     nStarsHourStart = GetPrivateProfileIntA("Preferences", "StarsStartHour", nStarsHourStart, ".\\" CONFIG_FILENAME ".ini");
     nStarsHourLast = GetPrivateProfileIntA("Preferences", "StarsLastHour", nStarsHourLast, ".\\" CONFIG_FILENAME ".ini");
