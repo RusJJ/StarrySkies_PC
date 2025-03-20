@@ -21,4 +21,3 @@ CVector RockStar_MainStarOff = { 100.f, -90.f, 10.f };
 int16_t pShootingStarIndices[] = { 0, 1 };
 
 RwIm3DVertex Skies_TempBufferRenderVertices[32] { 0 };
-int Skies_TempBufferVerts = 0;

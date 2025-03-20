@@ -31,7 +31,6 @@ extern CVector RockStar_MainStarOff;
 extern int16_t pShootingStarIndices[];
 
 extern RwIm3DVertex Skies_TempBufferRenderVertices[32];
-extern int Skies_TempBufferVerts;
 
 #define RandomIt(_min, _max) ((((float)rand()) / (float)RAND_MAX) * (_max - _min) + _min)
 

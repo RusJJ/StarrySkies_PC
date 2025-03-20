@@ -1,5 +1,8 @@
 #pragma once
 
+#include <stdint.h>
+#include <math.h>
+
 #define RwV2d CVector2D
 #define RwV3d CVector
 
@@ -13,6 +16,24 @@ struct CVector : CVector2D
     inline CVector operator+(const CVector& vecTwo)
     {
         return { x + vecTwo.x, y + vecTwo.y, z + vecTwo.z };
+    }
+    inline CVector operator*(const CVector& vecTwo)
+    {
+        return { x * vecTwo.x, y * vecTwo.y, z * vecTwo.z };
+    }
+    inline CVector operator*(float f)
+    {
+        return { x * f, y * f, z * f };
+    }
+    inline void Normalise()
+    {
+        float sqMul = x * x + y * y + z * z;
+        if (sqMul <= 0.0f) return;
+
+        float recip = 1.0f / sqrtf(sqMul);
+        x *= recip;
+        y *= recip;
+        z *= recip;
     }
 };
 

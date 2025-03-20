@@ -103,6 +103,42 @@ static void StarrySkies_Patch()
         }
         FlushSpriteBufferVC();
     }
+
+    if (bDrawFallingStar && (NewWeatherTypeVC == 0 || NewWeatherTypeVC == 4))
+    {
+        uint32_t v36 = (m_snTimeInMillisecondsVC & 0x1FFF);
+        if (v36 < 800)
+        {
+            float v43 = (400 - v36) + (400 - v36);
+            Skies_TempBufferRenderVertices[0].color = 0xE1FFFFFF;
+            Skies_TempBufferRenderVertices[1].color = 0x00FFFFFF;
+
+            uint32_t v37 = (m_snTimeInMillisecondsVC >> 13) & 0x3F;
+            CVector starScale{ 0.1f * (v37 % 7 - 3), 0.1f * ((m_snTimeInMillisecondsVC >> 13) - 4), 1.0f };
+            starScale.Normalise();
+            CVector starDir{ (float)(v37 % 9 - 5), (float)(v37 % 10 - 5), 0.1f };
+            starDir.Normalise();
+
+            WorldPos = CamPosVC + starDir * 1000.0f;
+
+            Skies_TempBufferRenderVertices[0].pos = WorldPos + starScale * v43;
+            Skies_TempBufferRenderVertices[1].pos = WorldPos + starScale * (v43 + 50.0f);
+
+            RwRenderStateSetVC(1, (void*)0); // FIX_BUGS
+            RwRenderStateSetVC(10, (void*)5);
+            RwRenderStateSetVC(11, (void*)6);
+
+            if (RwIm3DTransformVC(Skies_TempBufferRenderVertices, 2, NULL, 0x10 | 0x8))
+            {
+                RwIm3DRenderIndexedPrimitiveVC(2, pShootingStarIndices, 2);
+                RwIm3DEndVC();
+            }
+        }
+
+        // Original render states that are used for clouds
+        RwRenderStateSetVC(10, (void*)2);
+        RwRenderStateSetVC(11, (void*)2);
+    }
 }
 
 bool DoStarrySkiesVC()
