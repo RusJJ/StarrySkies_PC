@@ -1,5 +1,3 @@
-[![AML PC Mod Compiler](https://github.com/RusJJ/StarrySkies_PC/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/RusJJ/StarrySkies_PC/actions/workflows/main.yml)
-
 # About myself
 Starry Skies is a PC-port of [mobile mod (clickable link)](https://github.com/AndroidModLoader/GTA_StarrySkies). The original mod is adding way more stars and replaces the default R-shaped "picture"
 
@@ -8,6 +6,11 @@ Supported game version is **GTA:SA 1.0 US __only__** and all versions of GTA:VC 
 The mod has been tested in Modloader by [@TheArtemMaps](https://github.com/TheArtemMaps), also with SkyGFX and 2DFX Project.
 
 # Changelog
+## v1.3.0
+- Bug fixes
+- Backported shooting star from San Andreas to Vice City and III ! Also able to turn it off in all games
+![image](https://github.com/user-attachments/assets/88421f58-af4b-41eb-8a09-9bbeebb2e784)
+
 ## v1.2.2
 - User requested feature: bring back R\* logo easter egg
 
