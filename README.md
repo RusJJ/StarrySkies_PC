@@ -8,6 +8,7 @@ The mod has been tested in Modloader by [@TheArtemMaps](https://github.com/TheAr
 # Changelog
 ## v1.3.0
 - Bug fixes
+- Fixed VC/3 rainbow that was accidentally disabled by game developers
 - Backported shooting star from San Andreas to Vice City and III ! Also able to turn it off in all games
 ![GTA__Vice_City_2025-03-21_21-05-48_-_Trim_online-video-cutter com (2)](https://github.com/user-attachments/assets/e522294b-1754-4da1-ae2b-d5951435a03f)
 
