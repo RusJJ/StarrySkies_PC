@@ -3,13 +3,13 @@ Starry Skies is a PC-port of [mobile mod (clickable link)](https://github.com/An
 
 # What's about support?
 Supported game version is **GTA:SA 1.0 US __only__** and all versions of GTA:VC and GTA:III. ASI is universal for all games.
-The mod has been tested in Modloader by [@TheArtemMaps](https://github.com/TheArtemMaps), also with SkyGFX and 2DFX Project.
+The mod has been tested in Modloader by [@TheArtemMaps](https://github.com/TheArtemMaps) and my team members (Rcrydan), also with SkyGFX and 2DFX Project.
 
 # Changelog
 ## v1.3.0
 - Bug fixes
 - Backported shooting star from San Andreas to Vice City and III ! Also able to turn it off in all games
-![image](https://github.com/user-attachments/assets/88421f58-af4b-41eb-8a09-9bbeebb2e784)
+![GTA__Vice_City_2025-03-21_21-05-48_-_Trim_online-video-cutter com (2)](https://github.com/user-attachments/assets/e522294b-1754-4da1-ae2b-d5951435a03f)
 
 ## v1.2.2
 - User requested feature: bring back R\* logo easter egg
