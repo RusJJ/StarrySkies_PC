@@ -7,13 +7,15 @@ bool DoStarrySkiesIII();
 
 __declspec(dllexport) int GetMyVersion()
 {
-    return 0x010300; // 1.3.0
+    return 0x010301; // 1.3.1
 }
 
 void InitializeThoseStars()
 {
     // WideFix
-    bWideFix = (!GetModuleHandleA("GTAVC.WidescreenFix.asi") && !GetModuleHandleA("GTA3.WidescreenFix.asi"));
+    hWideFix = GetModuleHandleA("GTAVC.WidescreenFix.asi");
+    if (!hWideFix) hWideFix = GetModuleHandleA("GTA3.WidescreenFix.asi");
+    if (!hWideFix) bWideFix = false;
 
     // Config Moment
     int beefSeed = 0xBEEF;
@@ -38,7 +40,12 @@ void InitializeThoseStars()
     if (GetPrivateProfileIntA("Preferences", "ForceOffWideStarsFix", 0, ".\\" CONFIG_FILENAME ".ini") != 0) bWideFix = false;
     bDisableStars = (bool)GetPrivateProfileIntA("Preferences", "DisableStars", bDisableStars, ".\\" CONFIG_FILENAME ".ini");
     bDrawEasterEgg = (bool)GetPrivateProfileIntA("Preferences", "ShowEasterEgg", bDrawEasterEgg, ".\\" CONFIG_FILENAME ".ini");
+    if (GetPrivateProfileStringA("Preferences", "EasterEggStarsScale", nullptr, szConfigVar, sizeof(szConfigVar), ".\\" CONFIG_FILENAME ".ini") > 0)
+    {
+        fRockStarEasterScale = (float)atof(szConfigVar);
+    }
     bDrawFallingStar = (bool)GetPrivateProfileIntA("Preferences", "ShowFallingStars", bDrawFallingStar, ".\\" CONFIG_FILENAME ".ini");
+    bForceDisableFallingStar = (bool)GetPrivateProfileIntA("Preferences", "ForceOffFallingStars", bDrawFallingStar, ".\\" CONFIG_FILENAME ".ini");
 
     nStarsHourStart = GetPrivateProfileIntA("Preferences", "StarsStartHour", nStarsHourStart, ".\\" CONFIG_FILENAME ".ini");
     nStarsHourLast = GetPrivateProfileIntA("Preferences", "StarsLastHour", nStarsHourLast, ".\\" CONFIG_FILENAME ".ini");
@@ -67,19 +74,13 @@ void InitializeThoseStars()
         }
     }
 
-    // Useless calculations in a rendering order
+    // Useless calculations in a rendering queue
     for (int i = 0; i < 9; ++i)
     {
         RockStar_StarX[i] *= 90.0f;
         RockStar_StarY[i] *= 80.0f;
         RockStar_StarY[i] += 10.0f;
-        RockStar_StarSize[i] *= 0.8f;
-
-        // Stars are blending with the others, small fix is gonna be like this:
-        if (fBiggestStars > 1.0f)
-        {
-            RockStar_StarSize[i] *= fBiggestStars;
-        }
+        RockStar_StarSize[i] *= fRockStarEasterScale;
     }
 
     // Makes other rand() calls "more random"

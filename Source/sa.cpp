@@ -123,16 +123,16 @@ bool DoStarrySkiesSA()
         *(uint8_t*)(0x713D44) = nStarsHourStart;
         *(uint8_t*)(0x713D31) = nStarsHourLast;
         *(uint8_t*)(0x713D3F) = nStarsHourLast;
-
+        
         if (bDrawFallingStar)
         {
             // Fix shooting stars if we dont have a SilentPatch
             SAMemory::InjectHook(0x714625, ShootingStars_v10_Patch, SAMemory::HookType::Call);
         }
-        else
+        if (bForceDisableFallingStar)
         {
             // As we have falling stars already, give an ability to turn them off
-            SAMemory::InjectHook(0x71438C, 0x714639, SAMemory::HookType::Jump);
+            SAMemory::InjectHook(0x7143AE, 0x714639, SAMemory::HookType::Jump);
         }
 
         break;

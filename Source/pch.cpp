@@ -1,8 +1,8 @@
 ﻿#include "pch.h"
 
-bool bWideFix = true, bDisableStars = false, bDrawEasterEgg = true, bDrawFallingStar = true;
+bool bWideFix = true, bDisableStars = false, bDrawEasterEgg = true, bDrawFallingStar = true, bForceDisableFallingStar = false;
 float StarCoorsX[SSidesCount][AMOUNT_OF_SIDESTARS], StarCoorsY[SSidesCount][AMOUNT_OF_SIDESTARS], StarSizes[SSidesCount][AMOUNT_OF_SIDESTARS];
-float fSmallStars = 0.15f, fMiddleStars = 0.6f, fBiggestStars = 1.2f, fBiggestStarsSpawnChance = 20.0f;
+float fSmallStars = 0.15f, fMiddleStars = 0.6f, fBiggestStars = 1.2f, fBiggestStarsSpawnChance = 20.0f, fRockStarEasterScale = 1.0f;
 uint8_t nStarsHourStart = 22, nStarsHourLast = 5;
 CVector PositionsTable[SSidesCount] =
 {
@@ -19,5 +19,6 @@ float RockStar_StarY[9]    = { 0.00f, 0.45f, 0.90f, 1.00f, 0.85f, 0.52f, 0.48f, 
 float RockStar_StarSize[9] = { 1.00f, 1.40f, 0.90f, 1.00f, 0.60f, 1.50f, 1.30f, 1.00f, 0.80f };
 CVector RockStar_MainStarOff = { 100.f, -90.f, 10.f };
 int16_t pShootingStarIndices[] = { 0, 1 };
+HMODULE hWideFix = NULL;
 
 RwIm3DVertex Skies_TempBufferRenderVertices[32] { 0 };

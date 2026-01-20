@@ -109,7 +109,7 @@ static void StarrySkies_Patch()
         uint32_t v36 = (m_snTimeInMillisecondsVC & 0x1FFF);
         if (v36 < 800)
         {
-            float v43 = (400 - v36) + (400 - v36);
+            float v43 = (float)( (400 - v36) + (400 - v36) );
             Skies_TempBufferRenderVertices[0].color = 0xE1FFFFFF;
             Skies_TempBufferRenderVertices[1].color = 0x00FFFFFF;
 
