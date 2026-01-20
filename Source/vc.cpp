@@ -21,6 +21,10 @@ float& CloudCoverageVC = *AddressByVersion<float*>(0x974BE8, 0x974BF0, 0x973BF0)
 float& ms_fAspectRatioVC = *AddressByVersion<float*>(0x94DD38, 0x94DD40, 0x94CD40);
 uint32_t& m_snTimeInMillisecondsVC = *AddressByVersion<uint32_t*>(0x974B2C, 0x974B34, 0x973B34);
 int16_t& NewWeatherTypeVC = *AddressByVersion<int16_t*>(0xA10A2E, 0xA10A36, 0xA0FA36);
+void*** gpCoronaTextureVC = AddressByVersion<void***>(0x695538, 0x695538, 0x694540);
+auto CanSeeOutSideFromCurrAreaVC = AddressByVersion<bool(*)()>(0x4A4390, 0x4A43B0, 0x4A4250);
+auto InitSpriteBufferVC = AddressByVersion<bool(*)()>(0x577770, 0x577790, 0x577660);
+static void (*RenderCloudsScene_Orig)() = NULL;
 
 static void StarrySkies_Patch()
 {
@@ -141,6 +145,22 @@ static void StarrySkies_Patch()
     }
 }
 
+static void PreCloudsScene()
+{
+    if (!CanSeeOutSideFromCurrAreaVC())
+    {
+        RwRenderStateSetVC(8, (void*)0); /* rwRENDERSTATEZWRITEENABLE */
+        RwRenderStateSetVC(6, (void*)0); /* rwRENDERSTATEZTESTENABLE */
+        RwRenderStateSetVC(12, (void*)1); /* rwRENDERSTATEVERTEXALPHAENABLE */
+        RwRenderStateSetVC(10, (void*)2); /* rwRENDERSTATESRCBLEND */
+        RwRenderStateSetVC(11, (void*)2); /* rwRENDERSTATEDESTBLEND */
+        RwRenderStateSetVC(1, *(gpCoronaTextureVC[0])); /* rwRENDERSTATETEXTURERASTER */
+        StarrySkies_Patch();
+        FlushSpriteBufferVC();
+    }
+    RenderCloudsScene_Orig();
+}
+
 bool DoStarrySkiesVC()
 {
     ScopedUnprotect::Section Protect(GetModuleHandle(nullptr), ".text");
@@ -163,6 +183,12 @@ bool DoStarrySkiesVC()
         // Fixing a rainbow!
         *(uint8_t*)(0x540C4A + 1) = 0x85;
 
+        if (bForceInteriorStars)
+        {
+            RenderCloudsScene_Orig = (void(*)())(*(uintptr_t*)(0x4A6570 + 1) + 0x4A6570 + 5);
+            VCMemory::InjectHook(0x4A6570, PreCloudsScene, VCMemory::HookType::Call);
+        }
+
         break;
 
     case 1:
@@ -181,6 +207,12 @@ bool DoStarrySkiesVC()
         // Fixing a rainbow!
         *(uint8_t*)(0x540C6A + 1) = 0x85;
 
+        if (bForceInteriorStars)
+        {
+            RenderCloudsScene_Orig = (void(*)())(*(uintptr_t*)(0x4A6590 + 1) + 0x4A6590 + 5);
+            VCMemory::InjectHook(0x4A6590, PreCloudsScene, VCMemory::HookType::Call);
+        }
+
         break;
 
     case 2:
@@ -198,6 +230,12 @@ bool DoStarrySkiesVC()
 
         // Fixing a rainbow!
         *(uint8_t*)(0x540B3A + 1) = 0x85;
+
+        if (bForceInteriorStars)
+        {
+            RenderCloudsScene_Orig = (void(*)())(*(uintptr_t*)(0x4A6440 + 1) + 0x4A6440 + 5);
+            VCMemory::InjectHook(0x4A6440, PreCloudsScene, VCMemory::HookType::Call);
+        }
 
         break;
 

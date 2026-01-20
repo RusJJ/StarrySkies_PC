@@ -7,9 +7,10 @@ The mod has been tested in Modloader by [@TheArtemMaps](https://github.com/TheAr
 
 # Changelog
 ## v1.3.1
-- A possibility to change R* easter egg scale
+- A possibility to change R\* easter egg scale
 - SA: A fix for issues #2 and #3
 - SA: Force off widefix if we have Widescreen ASI installed
+- User requested feature: stars are visible while in interiors (GTA:3 doesnt need it)
 
 ## v1.3.0
 - Bug fixes
@@ -21,7 +22,7 @@ The mod has been tested in Modloader by [@TheArtemMaps](https://github.com/TheAr
 - User requested feature: bring back R\* logo easter egg
 
 ## v1.2.1
-- User requested feature: chengeable hour of start/end
+- User requested feature: changeable hour of start/end
 
 ## v1.2
 - GTA III support (all versions)

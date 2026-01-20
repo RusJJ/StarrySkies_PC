@@ -11,11 +11,16 @@ auto CalcScreenCoorsSA = AddressByVersion<bool (*)(CVector*, CVector*, float*, f
 auto RenderBufferedOneXLUSpriteSA = AddressByVersion<void(*)(CVector, float, float, uint8_t, uint8_t, uint8_t, short, float, uint8_t)>(0x70E4A0, 0, 0);
 auto RwIm3DRenderIndexedPrimitiveSA = AddressByVersion<int(*)(int, int16_t*, int)>(0x7EF550, 0, 0);
 auto RwRenderStateSetSA = AddressByVersion<int(*)(int, void*)>(0x7FE420, 0, 0);
+auto FlushSpriteBufferSA = AddressByVersion<void(*)()>(0x70CF20, 0, 0);
 uint8_t& ms_nGameClockMinutesSA = *AddressByVersion<uint8_t*>(0xB70152, 0, 0);
 uint8_t& ms_nGameClockHoursSA = *AddressByVersion<uint8_t*>(0xB70153, 0, 0);
 float& FoggynessSA = *AddressByVersion<float*>(0xC81300, 0, 0);
 float& CloudCoverageSA = *AddressByVersion<float*>(0xC81304, 0, 0);
 float& ms_fAspectRatioSA = *AddressByVersion<float*>(0xC3EFA4, 0, 0);
+void*** gpCoronaTextureSA = AddressByVersion<void***>(0xC3E000, 0, 0);
+auto CanSeeOutSideFromCurrAreaSA = AddressByVersion<bool(*)()>(0x53C4A0, 0, 0);
+auto InitSpriteBufferSA = AddressByVersion<bool(*)()>(0x70CFB0, 0, 0);
+static void (*RenderCloudsScene_Orig)() = NULL;
 
 static void StarrySkies_Patch()
 {
@@ -99,6 +104,22 @@ static void StarrySkies_Patch()
     }
 }
 
+static void PreCloudsScene()
+{
+    if (!CanSeeOutSideFromCurrAreaSA())
+    {
+        RwRenderStateSetSA(8, (void*)0); /* rwRENDERSTATEZWRITEENABLE */
+        RwRenderStateSetSA(6, (void*)0); /* rwRENDERSTATEZTESTENABLE */
+        RwRenderStateSetSA(12, (void*)1); /* rwRENDERSTATEVERTEXALPHAENABLE */
+        RwRenderStateSetSA(10, (void*)2); /* rwRENDERSTATESRCBLEND */
+        RwRenderStateSetSA(11, (void*)2); /* rwRENDERSTATEDESTBLEND */
+        RwRenderStateSetSA(1, *(gpCoronaTextureSA[0]) ); /* rwRENDERSTATETEXTURERASTER */
+        StarrySkies_Patch();
+        FlushSpriteBufferSA();
+    }
+    RenderCloudsScene_Orig();
+}
+
 static void ShootingStars_v10_Patch(int primType, int16_t* indices, int numIndices)
 {
     RwRenderStateSetSA(1, NULL);
@@ -133,6 +154,11 @@ bool DoStarrySkiesSA()
         {
             // As we have falling stars already, give an ability to turn them off
             SAMemory::InjectHook(0x7143AE, 0x714639, SAMemory::HookType::Jump);
+        }
+        if (bForceInteriorStars)
+        {
+            RenderCloudsScene_Orig = (void(*)())( *(uintptr_t*)(0x713953 + 1) + 0x713953 + 5);
+            SAMemory::InjectHook(0x713953, PreCloudsScene, SAMemory::HookType::Call);
         }
 
         break;
