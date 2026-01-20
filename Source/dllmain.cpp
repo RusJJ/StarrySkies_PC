@@ -15,6 +15,7 @@ void InitializeThoseStars()
     // WideFix
     hWideFix = GetModuleHandleA("GTAVC.WidescreenFix.asi");
     if (!hWideFix) hWideFix = GetModuleHandleA("GTA3.WidescreenFix.asi");
+    if (!hWideFix) hWideFix = GetModuleHandleA("GTASA.WidescreenFix.asi");
     if (!hWideFix) bWideFix = false;
 
     // Config Moment
@@ -45,7 +46,8 @@ void InitializeThoseStars()
         fRockStarEasterScale = (float)atof(szConfigVar);
     }
     bDrawFallingStar = (bool)GetPrivateProfileIntA("Preferences", "ShowFallingStars", bDrawFallingStar, ".\\" CONFIG_FILENAME ".ini");
-    bForceDisableFallingStar = (bool)GetPrivateProfileIntA("Preferences", "ForceOffFallingStars", bDrawFallingStar, ".\\" CONFIG_FILENAME ".ini");
+    bForceDisableFallingStar = (bool)GetPrivateProfileIntA("Preferences", "ForceOffFallingStars", bForceDisableFallingStar, ".\\" CONFIG_FILENAME ".ini");
+    bForceInteriorStars = (bool)GetPrivateProfileIntA("Preferences", "StarsInInteriors", bForceInteriorStars, ".\\" CONFIG_FILENAME ".ini");
 
     nStarsHourStart = GetPrivateProfileIntA("Preferences", "StarsStartHour", nStarsHourStart, ".\\" CONFIG_FILENAME ".ini");
     nStarsHourLast = GetPrivateProfileIntA("Preferences", "StarsLastHour", nStarsHourLast, ".\\" CONFIG_FILENAME ".ini");

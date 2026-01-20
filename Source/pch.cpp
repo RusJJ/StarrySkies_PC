@@ -1,6 +1,6 @@
 ﻿#include "pch.h"
 
-bool bWideFix = true, bDisableStars = false, bDrawEasterEgg = true, bDrawFallingStar = true, bForceDisableFallingStar = false;
+bool bWideFix = true, bDisableStars = false, bDrawEasterEgg = true, bDrawFallingStar = true, bForceDisableFallingStar = false, bForceInteriorStars = false;
 float StarCoorsX[SSidesCount][AMOUNT_OF_SIDESTARS], StarCoorsY[SSidesCount][AMOUNT_OF_SIDESTARS], StarSizes[SSidesCount][AMOUNT_OF_SIDESTARS];
 float fSmallStars = 0.15f, fMiddleStars = 0.6f, fBiggestStars = 1.2f, fBiggestStarsSpawnChance = 20.0f, fRockStarEasterScale = 1.0f;
 uint8_t nStarsHourStart = 22, nStarsHourLast = 5;

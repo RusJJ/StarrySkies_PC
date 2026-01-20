@@ -6,6 +6,11 @@ Supported game version is **GTA:SA 1.0 US __only__** and all versions of GTA:VC 
 The mod has been tested in Modloader by [@TheArtemMaps](https://github.com/TheArtemMaps) and my team members (Rcrydan), also with SkyGFX and 2DFX Project.
 
 # Changelog
+## v1.3.1
+- A possibility to change R* easter egg scale
+- SA: A fix for issues #2 and #3
+- SA: Force off widefix if we have Widescreen ASI installed
+
 ## v1.3.0
 - Bug fixes
 - Fixed VC/3 rainbow that was accidentally disabled by game developers
