@@ -147,7 +147,7 @@ static void StarrySkies_Patch()
 
 static void PreCloudsScene()
 {
-    if (!CanSeeOutSideFromCurrAreaVC())
+    if (!CanSeeOutSideFromCurrAreaVC() && IsTimeForStarsies(ms_nGameClockHoursVC))
     {
         RwRenderStateSetVC(8, (void*)0); /* rwRENDERSTATEZWRITEENABLE */
         RwRenderStateSetVC(6, (void*)0); /* rwRENDERSTATEZTESTENABLE */
@@ -155,8 +155,15 @@ static void PreCloudsScene()
         RwRenderStateSetVC(10, (void*)2); /* rwRENDERSTATESRCBLEND */
         RwRenderStateSetVC(11, (void*)2); /* rwRENDERSTATEDESTBLEND */
         RwRenderStateSetVC(1, *(gpCoronaTextureVC[0])); /* rwRENDERSTATETEXTURERASTER */
+
         StarrySkies_Patch();
         FlushSpriteBufferVC();
+
+        RwRenderStateSetVC(8, (void*)1); /* rwRENDERSTATEZWRITEENABLE */
+        RwRenderStateSetVC(6, (void*)1); /* rwRENDERSTATEZTESTENABLE */
+        RwRenderStateSetVC(12, (void*)0); /* rwRENDERSTATEVERTEXALPHAENABLE */
+        RwRenderStateSetVC(10, (void*)5); /* rwRENDERSTATESRCBLEND */
+        RwRenderStateSetVC(11, (void*)6); /* rwRENDERSTATEDESTBLEND */
     }
     RenderCloudsScene_Orig();
 }

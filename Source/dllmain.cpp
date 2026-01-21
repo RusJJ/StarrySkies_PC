@@ -7,16 +7,17 @@ bool DoStarrySkiesIII();
 
 __declspec(dllexport) int GetMyVersion()
 {
-    return 0x010301; // 1.3.1
+    return 0x010302; // 1.3.2
 }
 
 void InitializeThoseStars()
 {
     // WideFix
-    hWideFix = GetModuleHandleA("GTAVC.WidescreenFix.asi");
-    if (!hWideFix) hWideFix = GetModuleHandleA("GTA3.WidescreenFix.asi");
-    if (!hWideFix) hWideFix = GetModuleHandleA("GTASA.WidescreenFix.asi");
-    if (!hWideFix) bWideFix = false;
+    hWideFixASI = GetModuleHandleA("GTAVC.WidescreenFix.asi");
+    if (!hWideFixASI) hWideFixASI = GetModuleHandleA("GTA3.WidescreenFix.asi");
+    if (!hWideFixASI) hWideFixASI = GetModuleHandleA("GTASA.WidescreenFix.asi");
+
+    bWideFix = ( !hWideFixASI );
 
     // Config Moment
     int beefSeed = 0xBEEF;
@@ -103,9 +104,9 @@ BOOL APIENTRY DllMain( HMODULE hModule,
             MessageBoxA(NULL, "StarrySkies is not supported in this game!\n \nList of supported games:\n- GTA:SA v1.0 US\n- GTA:VC (any version)\n- GTA:III (any version)", "StarrySkies PC", MB_ICONERROR);
             return FALSE;
         }
-      #ifdef _DEBUG
-        MessageBoxA(NULL, "StarrySkies has been loaded! :)", "StarrySkies PC", MB_OK);
-      #endif
+        #ifdef _DEBUG
+            MessageBoxA(NULL, "StarrySkies has been loaded! :)", "StarrySkies PC", MB_OK);
+        #endif
         break;
 
     case DLL_THREAD_ATTACH:

@@ -29,10 +29,19 @@ extern uint8_t nStarsHourStart, nStarsHourLast;
 extern float RockStar_StarX[9], RockStar_StarY[9], RockStar_StarSize[9];
 extern CVector RockStar_MainStarOff;
 extern int16_t pShootingStarIndices[];
-extern HMODULE hWideFix;
+extern HMODULE hWideFixASI;
 
 extern RwIm3DVertex Skies_TempBufferRenderVertices[32];
 
 #define RandomIt(_min, _max) ((((float)rand()) / (float)RAND_MAX) * (_max - _min) + _min)
+
+inline bool IsTimeForStarsies(uint8_t hour)
+{
+    if (nStarsHourStart > nStarsHourLast)
+    {
+        return (nStarsHourStart <= hour || hour <= nStarsHourLast);
+    }
+    return (nStarsHourStart <= hour && hour <= nStarsHourLast);
+}
 
 #endif

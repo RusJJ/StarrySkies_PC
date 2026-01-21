@@ -6,6 +6,10 @@ Supported game version is **GTA:SA 1.0 US __only__** and all versions of GTA:VC 
 The mod has been tested in Modloader by [@TheArtemMaps](https://github.com/TheArtemMaps) and my team members (Rcrydan), also with SkyGFX and 2DFX Project.
 
 # Changelog
+## v1.3.2
+- Fixed WidescreenFix detection (bruh)
+- Forgot about the time for stars in interios :p
+
 ## v1.3.1
 - A possibility to change R\* easter egg scale
 - SA: A fix for issues #2 and #3
